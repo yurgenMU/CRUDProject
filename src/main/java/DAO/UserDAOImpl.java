@@ -66,6 +66,15 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
+    public User getUser(int userId) {
+        try (Session session = sessionFactory.openSession()) {
+            Transaction transaction = session.beginTransaction();
+            User user = session.get(User.class, userId);
+            return user;
+        }
+    }
+
+
     public List<User> getAllUsers() {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
@@ -89,10 +98,10 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public void removeUser(User user) {
+    public void removeUser(int userId) {
         try (Session session = sessionFactory.openSession()) {
             Transaction transaction = session.beginTransaction();
-            User removedUser = session.get(User.class, user.getId());
+            User removedUser = session.get(User.class, userId);
             session.delete(removedUser);
             transaction.commit();
         }
