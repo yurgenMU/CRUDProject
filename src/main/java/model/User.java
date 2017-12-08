@@ -11,16 +11,6 @@ public class User {
     private String speciality;
     private String email;
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", speciality='" + speciality + '\'' +
-                ", email='" + email + '\'' +
-                '}';
-    }
 
     public User() {
     }
@@ -108,4 +98,17 @@ public class User {
         result = 31 * result + (email != null ? email.hashCode() : 0);
         return result;
     }
+
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", speciality='" + speciality + '\'' +
+                ", email='" + email + '\'' +
+                '}';
+    }
+
 }
