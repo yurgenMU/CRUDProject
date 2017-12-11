@@ -1,8 +1,12 @@
 package controllers;
 
+import DAO.UserDAO;
+import DAO.UserDAOImpl;
 import model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,26 +16,31 @@ import service.UserService;
 
 import java.util.List;
 
+@Controller
 public class UserController {
+
     private UserService userService;
 
-    @Autowired
-    @Qualifier(value = "userService")
+
+//    @Autowired(required = true)
+//    @Qualifier(value = "userService")
     public void setUserService(UserService userService) {
         this.userService = userService;
+        System.out.println(userService.getAllUsers());
     }
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String listUsers(Model model) {
         List<User> users = userService.getAllUsers();
+        System.out.println(users.size() + " ХУЙ");
         model.addAttribute("users", users);
         System.out.println("++++++++++++++++++++++++++++++" +
                 "+++++++++++++++++++++++++++++++++++" +
                 "хуйпизда");
-        return "listuser";
+        return "listUser";
     }
 
-    @RequestMapping(value = "add", method = RequestMethod.POST)
+    @RequestMapping(value = "/add", method = RequestMethod.POST)
     public String addNew(@ModelAttribute("user") User user, Model model, @RequestParam("id") String userid) {
 //        User user = new User();
 //        user.setFirstName(model.getParameter("firstName"));
