@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet("/")
+//@WebServlet("/")
 public class MainController extends HttpServlet {
     private UserDAOImpl userDAO = new UserDAOImpl();
 

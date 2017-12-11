@@ -1,69 +1,56 @@
 package controllers;
 
-import DAO.UserDAO;
-import DAO.UserDAOImpl;
 import model.User;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import service.UserService;
 
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
+import java.util.List;
 
-@WebServlet("/UserController")
-public class UserController extends HttpServlet {
-    private static String INSERT = "/jsp/user.jsp";
-    private static String LIST_USER = "/jsp/listUser.jsp";
-    private static String EDIT = "/jsp/update.jsp";
-    private UserDAO userDAO;
+public class UserController {
+    private UserService userService;
 
-    public UserController() {
-        super();
-        userDAO = new UserDAOImpl();
+    @Autowired
+    @Qualifier(value = "userService")
+    public void setUserService(UserService userService) {
+        this.userService = userService;
     }
 
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String forward = "";
-        String action = req.getParameter("action");
-
-        if (action.equalsIgnoreCase("delete")) {
-            int userId = Integer.parseInt(req.getParameter("id"));
-            userDAO.removeUser(userId);
-            forward = LIST_USER;
-            req.setAttribute("users", userDAO.getAllUsers());
-        } else if (action.equalsIgnoreCase("edit")) {
-            forward = EDIT;
-            int userId = Integer.parseInt(req.getParameter("id"));
-            User user = userDAO.getUser(userId);
-            req.setAttribute("user", user);
-        } else if (action.equalsIgnoreCase("listUser")) {
-            forward = LIST_USER;
-            req.setAttribute("users", userDAO.getAllUsers());
-        } else {
-            forward = INSERT;
-        }
-
-        RequestDispatcher view = req.getRequestDispatcher(forward);
-        view.forward(req, resp);
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public String listUsers(Model model) {
+        List<User> users = userService.getAllUsers();
+        model.addAttribute("users", users);
+        System.out.println("++++++++++++++++++++++++++++++" +
+                "+++++++++++++++++++++++++++++++++++" +
+                "хуйпизда");
+        return "listuser";
     }
 
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        User user = new User();
-        user.setFirstName(req.getParameter("firstName"));
-        user.setLastName(req.getParameter("lastName"));
-        user.setSpeciality(req.getParameter("speciality"));
-        user.setEmail(req.getParameter("email"));
-        String userid = req.getParameter("id");
+    @RequestMapping(value = "add", method = RequestMethod.POST)
+    public String addNew(@ModelAttribute("user") User user, Model model, @RequestParam("id") String userid) {
+//        User user = new User();
+//        user.setFirstName(model.getParameter("firstName"));
+//        user.setLastName(req.getParameter("lastName"));
+//        user.setSpeciality(req.getParameter("speciality"));
+//        user.setEmail(req.getParameter("email"));
+//        String userid = req.getParameter("id");
+        model.addAttribute("firstName", user.getFirstName());
+        model.addAttribute("lastName", user.getLastName());
+        model.addAttribute("speciality", user.getSpeciality());
+        model.addAttribute("email",user.getEmail());
+
         if (userid == null || userid.isEmpty()) {
-            userDAO.addUser(user);
+            userService.addUser(user);
         } else {
             user.setId(Integer.parseInt(userid));
-            userDAO.updateUser(user);
+            userService.addUser(user);
         }
-        RequestDispatcher view = req.getRequestDispatcher(LIST_USER);
-        req.setAttribute("users", userDAO.getAllUsers());
-        view.forward(req, resp);
+        return "user";
     }
 }
+
