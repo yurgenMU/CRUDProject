@@ -14,8 +14,8 @@
 
     <mvc:annotation-driven/>
 
-    <bean id="controller" class="controllers.UserController">
-        <property name="userService" ref="userService"></property>
+    <bean id="userController" class="controllers.UserController">
+        <!--<property name="userService" ref="userService"></property>-->
     </bean>
 
     <bean id="userDAO" class="DAO.UserDAOImpl"></bean>

@@ -2,12 +2,29 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/context
-       http://www.springframework.org/schema/context/spring-context.xsd">
+       http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+    <mvc:annotation-driven/>
+
 
     <context:component-scan base-package="controllers"/>
+
+
+
+    <bean id="userController" class="controllers.UserController">
+        <!--<property name="userService" ref="userService"></property>-->
+    </bean>
+
+    <bean id="userDAO" class="DAO.UserDAOImpl"></bean>
+    <!--TODO: try to set sessionFactory here instead of setting in class-->
+    <bean id="userService" class="service.UserService">
+        <property name="userDAO" ref="userDAO"></property>
+    </bean>
+    <context:component-scan base-package="controllers"/>
+
 
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/pages/"/>

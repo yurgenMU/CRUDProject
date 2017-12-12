@@ -50,20 +50,6 @@ public class UserDAOImpl implements UserDAO {
         return users;
     }
 
-//    @Override
-//    public void updateUser(User user) {
-//        try (Session session = sessionFactory.openSession()) {
-//            Transaction transaction = session.beginTransaction();
-//            User modifiedUser = session.get(User.class, user.getId());
-//            modifiedUser.setFirstName(user.getFirstName());
-//            modifiedUser.setLastName(user.getLastName());
-//            modifiedUser.setSpeciality(user.getSpeciality());
-//            modifiedUser.setEmail(user.getEmail());
-//            session.update(modifiedUser);
-//            transaction.commit();
-//        }
-//    }
-
     @Override
     public void removeUser(int userId) {
         try (Session session = sessionFactory.openSession()) {

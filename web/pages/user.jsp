@@ -14,7 +14,9 @@
 <body>
 
 
+<%--<form method="POST" action='add' name="frmAddUser">--%>
 <form method="POST" action='add' name="frmAddUser">
+
     First Name : <input
         type="text" name="firstName"
         value="${user.firstName}"> <br/>

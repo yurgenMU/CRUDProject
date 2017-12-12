@@ -9,7 +9,6 @@
     <title>Show All Users</title>
 </head>
 <body>
-<%--HUI PIZDA--%>
 <table border=1>
     <thead>
     <tr>
@@ -29,12 +28,12 @@
             <td>${user.lastName}</td>
             <td>${user.speciality}</td>
             <td>${user.email}</td>
-            <td><a href="UserController?action=edit&id=${user.id}">Update </a></td>
-            <td><a href="UserController?action=delete&id=${user.id}">Delete</a></td>
+            <td><a href="/edit/${user.id}">Update </a></td>
+            <td><a href="remove/${user.id}">Delete</a></td>
         </tr>
     </c:forEach>
     </tbody>
 </table>
-<p><a href=/add">Add User</a></p>
+<p><a href=/add>Add User</a></p>
 </body>
 </html>

@@ -4,7 +4,7 @@
     <title>Edit user</title>
 </head>
 <body>
-<form method="POST" action='UserController' name="Update User">
+<form method="POST" action='edit' name="Update User">
     User ID : <input type="text" readonly="readonly" name="id"
                      value="${user.id}"> <br />
     First Name : <input
