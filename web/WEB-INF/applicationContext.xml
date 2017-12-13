@@ -8,15 +8,12 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/mvc
-        http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd"
->
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd">
 
 
     <mvc:annotation-driven/>
-
-    <bean id="userController" class="controllers.UserController">
-        <!--<property name="userService" ref="userService"></property>-->
-    </bean>
 
     <bean id="userDAO" class="DAO.UserDAOImpl"></bean>
     <!--TODO: try to set sessionFactory here instead of setting in class-->
@@ -24,15 +21,5 @@
         <property name="userDAO" ref="userDAO"></property>
     </bean>
     <context:component-scan base-package="controllers"/>
-
-
-
-
-    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-        <property name="prefix" value="/WEB-INF/jsp/"/>
-        <property name="suffix" value=".jsp"/>
-    </bean>
-
-
 
 </beans>

@@ -15,7 +15,7 @@ public class UserController {
     private UserService userService;
 
 
-    @Autowired(required = true)
+    @Autowired
     @Qualifier(value = "userService")
     private void setUserService(UserService userService) {
         this.userService = userService;
