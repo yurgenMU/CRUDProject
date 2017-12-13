@@ -1,4 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<link rel="stylesheet" type="text/css" href="/resources/css/bootstrap.min.css">
+<script type="text/javascript" src="/resources/js/bootstrap.min.js"></script>
 <html>
 <head>
     <title>Edit user</title>

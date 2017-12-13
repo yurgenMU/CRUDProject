@@ -12,17 +12,6 @@ public class User {
     private String email;
 
 
-    public User() {
-    }
-
-    public User(String firstName, String lastName, String speciality, String email) {
-
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.speciality = speciality;
-        this.email = email;
-    }
-
     @Id
     @Column(name = "id", nullable = false)
     public int getId() {
